@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMPML - Pune Mahanagar Parivahan Mahamandal Limited</title>
+    <link rel="stylesheet" href="../includes/styles.css">
+    <link rel="stylesheet" href="../includes/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="../includes/script.js"></script>
+    <style>
+        /* Define the loading animation */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Apply the loading animation to the loading-spinner class */
+        .btn-loading::after {
+            content: "";
+            display: inline-block;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            border-top: 3px solid #333;
+            width: 1em;
+            height: 1em;
+            vertical-align: text-bottom;
+            margin-left: 0.3em;
+            animation: spin 0.6s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-container"></div>
+    <div id="loading-spinner"></div>
+    <div class="container mt-5">
+        <h2 class="mb-4">User Registration</h2>
+        <form id="registrationForm" onsubmit="return validateForm()" action="../../logic/register.php" method="post"enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="phone">Phone number:</label>
+                <input type="tel" class="form-control" id="phone" placeholder="Enter your Phone number" required name="phone" pattern="[0-9]{10}">
+                <small class="form-text text-muted"><b>Enter a 10-digit phone number.</b></small>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="confirm password" class="form-label">Confirm Password:</label>
+                <input type="password" class="form-control" id="cpassword" name="cpassword" required>
+            </div>
+            <div class="form-group">
+                <label for="photo">Upload Passport Size Photo:</label>
+                <input type="file" class="form-control-file" id="photo" required name="photo" accept="image/*">
+            </div>
+            <div class="d-flex justify-content-center" style="margin-top: 1cm;">
+                
+                
+                    <button type="submit" class="btn btn-success" onclick="showLoading()">Next</button>
+                
+
+                <div style="width: 1cm;"></div> <!-- 1cm space between buttons -->
+                <button onclick="moveTo('login.html')" class="btn btn-success btn-lg btn-block">Back</button>
+            </div>
+
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function validateForm() {
+            var name = document.getElementById('name').value;
+            var username = document.getElementById('username').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var cpassword = document.getElementById('cpassword').value;
+            var phone=document.getElementById('phone').value
+
+            if (!name || !username || !email || !password || !cpassword || !phone) {
+                alert("Please fill in all the fields.");
+                return false;
+            }
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Invalid email format.");
+                return false;
+            }
+            if (!/^[a-zA-Z\s'-]+$/.test(name)) {
+                alert("Name should only contain alphabetical characters, spaces, hyphens, and apostrophes.");
+                return false;
+            }
+            if (!password || password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            if (password !== cpassword) {
+                alert("Password and Confirm Password do not match.");
+                return false;
+            }
+            if(!/^\d{0,10}$/.test(phone))
+            {
+                alert("Incorrect Phone No");
+            }
+
+
+            // Additional client-side validation logic can be added here
+
+            return true;
+        }
+
+        function showLoading() {
+            var loadingSpinner = document.getElementById('loading-spinner');
+    loadingSpinner.style.display = 'block';
+
+    // Simulate a delay (you can replace this with an actual loading process)
+    setTimeout(function () {
+        loadingSpinner.style.display = 'none';
+        // Redirect to login.html after loading
+        
+    }, 2000); // Adjust the duration as needed
+        }
+    </script>
+
+</body>
+
+</html>
